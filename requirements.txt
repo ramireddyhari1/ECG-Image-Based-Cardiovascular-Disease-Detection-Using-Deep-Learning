@@ -1,0 +1,8 @@
+Flask>=3.0,<4
+tensorflow>=2.21.0,<2.22
+keras>=3.0,<4
+opencv-python>=4.10
+numpy>=2.1
+matplotlib>=3.10
+scikit-learn>=1.6
+Pillow>=10.3

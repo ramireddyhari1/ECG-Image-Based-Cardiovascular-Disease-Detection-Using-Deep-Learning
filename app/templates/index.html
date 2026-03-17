@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECG Image-Based Cardiovascular Disease Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <header class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">AI-Assisted Cardiac Screening</p>
+      <h1>ECG Image-Based Cardiovascular Disease Detection Using Deep Learning</h1>
+      <p class="subtitle">
+        Upload an ECG image to detect potential cardiac conditions with CNN inference,
+        confidence scoring, and visual clinical support.
+      </p>
+    </div>
+    <div class="pulse-line" aria-hidden="true"></div>
+  </header>
+
+  <main class="container">
+    <section class="card upload-card">
+      <h2>Patient and ECG Input</h2>
+      <form id="ecgForm">
+        <div class="patient-grid">
+          <label>
+            Patient Name
+            <input type="text" name="patient_name" placeholder="e.g. Ravi Kumar" />
+          </label>
+          <label>
+            Age
+            <input type="number" name="patient_age" min="1" max="120" placeholder="e.g. 58" />
+          </label>
+          <label>
+            Gender
+            <select name="patient_gender">
+              <option value="Unknown">Unknown</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="file-upload">
+          <input id="ecgImageInput" type="file" name="ecg_image" accept="image/*" required />
+          <span>Select ECG Image</span>
+        </label>
+
+        <button id="analyzeBtn" type="submit">Analyze ECG</button>
+        <p id="statusText" class="status"></p>
+      </form>
+    </section>
+
+    <section class="grid-two">
+      <article class="card preview-card">
+        <h2>Uploaded ECG</h2>
+        <img id="uploadedImage" alt="Uploaded ECG preview" />
+      </article>
+
+      <article class="card result-card">
+        <h2>Prediction Result</h2>
+        <div class="result-item">
+          <span>Detected Condition</span>
+          <strong id="predictedCondition">-</strong>
+        </div>
+        <div class="result-item">
+          <span>Confidence Score</span>
+          <strong id="confidenceScore">-</strong>
+        </div>
+        <div class="result-item explanation">
+          <span>Clinical Note</span>
+          <p id="medicalExplanation">Upload an ECG image to view model interpretation.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-two">
+      <article class="card chart-card">
+        <h2>Confidence Probability Chart</h2>
+        <canvas id="probabilityChart"></canvas>
+      </article>
+
+      <article class="card chart-card">
+        <h2>ECG Waveform Visualization</h2>
+        <canvas id="waveformChart"></canvas>
+      </article>
+    </section>
+
+    <section class="card report-card">
+      <h2>Patient Report</h2>
+      <div id="reportContent" class="report-content">
+        No analysis available yet.
+      </div>
+      <button id="downloadReportBtn" type="button" disabled>Download Report</button>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
